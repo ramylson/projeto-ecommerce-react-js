@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Adicione essas classes ao seu arquivo de estilos Tailwind */
+
+.cart-item {
+    @apply flex items-center gap-4 border-b border-gray-200 p-4;
+  }
+
+.product-image {
+    @apply w-24 h-24 object-cover;
+}
+
+.product-info {
+    @apply flex-1;
+}
+
+.product-name {
+    @apply font-bold text-lg;
+}
+
+.product-description {
+    @apply text-gray-500;
+}
+
+.product-price {
+    @apply font-semibold text-blue-500;
+}
