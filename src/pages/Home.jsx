@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite';
-import db from "../Firebase";
 
-export default function Home() {
+import ProductLink from '../components/ProductLink';
+import {db} from "../Firebase";
+import { creatUser } from '../auth';
+
+function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    (async function(){
-      const productsCol = collection(db, "products");
-      const productsSnapshot = await getDocs(productsCol);
-      const products = productsSnapshot.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data()
-        }
-      });
-      setProducts(products);
+      (async function(){
+        const productsCol = collection(db, "products");
+        const productsSnapshot = await getDocs(productsCol);
+        const products = productsSnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data()
+          }
+        });
+        setProducts(products);
     })()
   },[]);
 
   return (
     <>
-    {products.map(({id,cd_item,nm_item,image}) => (
-      <div key={id} className="cart-item">
-          <img src={image} alt="Nome do Produto" className="product-image" />
-         <div className="product-info">
-          <h3 className="product-name">{cd_item}</h3>
-          <h3 className="product-description">{nm_item}</h3>
-          <p className="product-price">R$ 99,99</p>
-        </div>
-      </div>
+    <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-4">
+      <button onClick={() => {
+        creatUser("ramylsondacosta@gmail.com", "123456")
+      }}>Criar usuario</button>
+      {products.length === 0 && <div>Carregando...</div>}
+      {products && products.map(({id,cd_item,nm_item,preco,image}) => (
+        <ProductLink key={id} id={id} cd_item={cd_item} nm_item={nm_item} preco={preco} image={image} />
+      ))}
 
-    ))}
+    </div>
     </>
   )
 }
+
+export { Home }

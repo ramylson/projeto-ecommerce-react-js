@@ -2,28 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Adicione essas classes ao seu arquivo de estilos Tailwind */
-
-.cart-item {
-    @apply flex items-center gap-4 border-b border-gray-200 p-4;
-  }
-
-.product-image {
-    @apply w-24 h-24 object-cover;
+#wrapper {
+    min-height: 100vh; /* 100% da altura da tela */
+    display: flex;
+    flex-direction: column
 }
 
-.product-info {
-    @apply flex-1;
-}
-
-.product-name {
-    @apply font-bold text-lg;
-}
-
-.product-description {
-    @apply text-gray-500;
-}
-
-.product-price {
-    @apply font-semibold text-blue-500;
+#content {
+    flex: 1; /* Faz o main crescer para ocupar o espaço restante */
+    padding: 20px;
 }
