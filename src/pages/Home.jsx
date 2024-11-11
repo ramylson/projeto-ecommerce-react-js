@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite';
 
 import ProductLink from '../components/ProductLink';
 import {db} from "../Firebase";
-import { creatUser } from '../auth';
+import AuthContext from '../context/AuthContext';
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     setLoading(true);
@@ -26,10 +27,8 @@ function Home() {
 
   return (
     <>
+    Olá {currentUser.email}
     <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-4">
-      <button onClick={() => {
-        creatUser("ramylsondacosta@gmail.com", "123456")
-      }}>Criar usuario</button>
       {products.length === 0 && <div>Carregando...</div>}
       {products && products.map(({id,cd_item,nm_item,preco,image}) => (
         <ProductLink key={id} id={id} cd_item={cd_item} nm_item={nm_item} preco={preco} image={image} />
