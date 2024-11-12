@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore/lite';
 import { db } from "../Firebase";
 import CartContext from '../context/CartContext';
@@ -9,7 +9,7 @@ function ProductDetail() {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity ] = useState(1);
-
+  const navigate = useNavigate();
   const { cart, dispatch } = useContext(CartContext);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ function ProductDetail() {
       type: 'addItem',
       item: {...product, quantity}
     });
+    navigate("/cart");
     //setCart([...cart, {...product,quantity}])
   };
 

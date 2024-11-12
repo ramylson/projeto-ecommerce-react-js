@@ -1,28 +1,34 @@
 import React, { useState } from 'react'
-import { creatUser } from '../auth';
 import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../auth';
 
-function SignUp() {
+
+function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [isRegistering, setIsRegistering] = useState(false);
-    const [isLogin, setisLogin] = useState(false);
+    const [isLogin, setisLogin] = useState(true);
     const navegator = useNavigate();
+
+    // const onSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setIsRegistering(true);
+
+    //     await loginUser(email, password);
+    //     setIsRegistering(false);
+    //     navegator("/");
+    // }
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setIsRegistering(true);
 
-        if (password !== confirmPassword){
-            return;
-        }
-
         try {
-            await creatUser(email, password);
+            await loginUser(email, password);
             setIsRegistering(false);
             navegator("/");
         } catch (error) {
+            console.error("Error during login:", error);
             setIsRegistering(false);
             setisLogin(false);
         }
@@ -46,7 +52,7 @@ function SignUp() {
                 className="mx-auto h-10 w-auto"
             />
             <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                Criar usuario
+                Login
             </h2>
             </div>
 
@@ -82,10 +88,10 @@ function SignUp() {
                     </label>
                     <div className="text-sm">
                         <Link
-                        to="/signin"
-                        className="font-semibold text-indigo-600 hover:text-indigo-500"
+                            to="/signup"
+                            className="font-semibold text-indigo-600 hover:text-indigo-500"
                         >
-                        Login
+                            Criar Usuário
                         </Link>
                     </div>
                 </div>
@@ -105,40 +111,20 @@ function SignUp() {
                 </div>
                 </div>
 
-                <div>
-                <div className="flex items-center justify-between">
-                    <label htmlFor="confirm-password" className="block text-sm/6 font-medium text-gray-900">
-                    Confirmar senha
-                    </label>
-                </div>
-                <div className="mt-2">
-                    <input
-                    value={confirmPassword}
-                    onChange={(e) => {
-                        setConfirmPassword(e.target.value)
-                    }}
-                    id="confirm-password"
-                    name="confirm-password"
-                    type="password"
-                    required
-                    autoComplete="confirm-password"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                    />
-                </div>
-                </div>
 
                 <div>
-                {isLogin &&
+                {!isLogin &&
                 <span className="block text-sm/6 font-medium text-gray-900">
-                    Email ou senha não aceito
+                    Email ou senha invalido
                 </span>
                 }
+
                 <button
                     disabled={isRegistering}
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                    {isRegistering ? "Registrando..." : "Registrar"}
+                    {isRegistering ? "Acessando..." : "Acessar"}
                 </button>
                 </div>
             </form>
@@ -148,4 +134,4 @@ function SignUp() {
     )
 }
 
-export { SignUp }
+export { SignIn }

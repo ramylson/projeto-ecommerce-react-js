@@ -3,7 +3,7 @@ import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { CartProvider } from './context/CartContext'
-import { Home, Cart, Checkout, ProductDetail, SignUp } from "./pages";
+import { Home, Cart, Checkout, ProductDetail, SignUp, SignIn } from "./pages";
 import { AuthProvider } from './context/AuthContext'
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
               <Route path='/checkout' element={<Checkout/>} />
               <Route path='/product/:id' element={<ProductDetail/>} />
               <Route path='/signup' element={<SignUp/>} />
+              <Route path='/signin' element={<SignIn/>} />
             </Routes>
             </div>
             <Footer/>

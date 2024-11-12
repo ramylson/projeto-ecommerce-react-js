@@ -40,6 +40,11 @@ const cartReducer = (cart,action) => {
             localStorage.setItem('cart', JSON.stringify(mapperCart));
             return mapperCart;
         }
+
+        case "resetCart": {
+            localStorage.setItem("cart", JSON.stringify([]));
+            return [];
+        }
         default:
             break;
     }

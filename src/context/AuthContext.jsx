@@ -4,7 +4,9 @@ import { auth } from "../Firebase";
 
 const AuthContext = createContext();
 
-// import React from "react";
+export function useAuth() {
+    return useContext(AuthContext);
+}
 
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null);

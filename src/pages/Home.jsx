@@ -27,14 +27,12 @@ function Home() {
 
   return (
     <>
-    Olá {currentUser.email}
-    <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-4">
-      {products.length === 0 && <div>Carregando...</div>}
-      {products && products.map(({id,cd_item,nm_item,preco,image}) => (
-        <ProductLink key={id} id={id} cd_item={cd_item} nm_item={nm_item} preco={preco} image={image} />
-      ))}
-
-    </div>
+      <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-4">
+        {products.length === 0 && <div>Carregando...</div>}
+        {products && products.map((product) => (
+          <ProductLink key={product?.id} {...product} />
+        ))}
+      </div>
     </>
   )
 }
